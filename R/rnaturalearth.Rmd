@@ -102,6 +102,8 @@ plot(ne_states(geounit = "england"))
 
 # states country='france'
 plot(ne_states(country = "france"))
+# states country='france'
+plot(ne_states(country = "united states of america"))
 ```
 
 
@@ -219,4 +221,26 @@ Table: category='cultural' vector data available via ne_download()
 |urban_areas                                     |       1|       1|        0|
 |urban_areas_landscan                            |       1|       0|        0|
 
+
+
+## From GitHub
+
+
+```{r}
+if (!require("tidyverse")) install.packages("tidyverse")
+#> Loading required package: tidyverse
+if (!require("sf")) install.packages("sf")
+#> Loading required package: sf
+#> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.2
+if (!require("rnaturalearth")) install.packages("rnaturalearth")
+#> Loading required package: rnaturalearth
+
+world_data <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
+
+world_data %>%
+  filter_all(., any_vars(str_detect(., "Sub-Saharan"))) %>%
+  ggplot() +
+  geom_sf()
+
+```
 
