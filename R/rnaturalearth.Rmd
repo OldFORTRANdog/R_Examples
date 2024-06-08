@@ -242,5 +242,10 @@ world_data %>%
   ggplot() +
   geom_sf()
 
+world_data %>%
+  filter(across(starts_with("a"), str_detect(., "America"))) %>%
+  ggplot() +
+  geom_sf()
+
 ```
 
